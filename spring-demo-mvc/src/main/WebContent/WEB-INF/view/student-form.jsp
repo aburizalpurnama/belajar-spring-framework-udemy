@@ -20,8 +20,12 @@
             <br><br>
 
             Select Country : <form:select path="country">
-                <%-- populate the item options with some List object described on Java file --%>
+                <%-- populate the item options from properties file --%>
+                <form:options items="${countryOptions}" />
+
+                <%-- populate the item options with some List object described on Java file
                 <form:options items="${student.countryOptions}" />
+                --%>
 
                 <%-- Populate the item options manualy
                 <form:option value="Brazil" label="Brazil" />

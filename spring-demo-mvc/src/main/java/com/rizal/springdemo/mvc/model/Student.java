@@ -10,12 +10,14 @@ public class Student {
     private Map<String, String> countryOptions;
 
     public Student() {
-        countryOptions = new LinkedHashMap<>();
-        countryOptions.put("INA", "Indonesia");
-        countryOptions.put("USA", "United State of America");
-        countryOptions.put("IND", "India");
-        countryOptions.put("AFG", "Afghanistan");
-        countryOptions.put("ALB", "Albania");
+
+        // implement populate dropdown list with some properties file (remove all list refferences)
+//        countryOptions = new LinkedHashMap<>();
+//        countryOptions.put("INA", "Indonesia");
+//        countryOptions.put("USA", "United State of America");
+//        countryOptions.put("IND", "India");
+//        countryOptions.put("AFG", "Afghanistan");
+//        countryOptions.put("ALB", "Albania");
     }
 
     public String getFirstName() {
