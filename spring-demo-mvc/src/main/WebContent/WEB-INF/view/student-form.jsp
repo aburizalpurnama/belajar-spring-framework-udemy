@@ -43,11 +43,7 @@
 
             <br><br>
             Experienced OS :
-            <form:checkbox path="operatingSystems" value="Linux" /> Linux
-            <form:checkbox path="operatingSystems" value="Windows" /> Windows
-            <form:checkbox path="operatingSystems" value="Machintos" /> Machintos
-            <form:checkbox path="operatingSystems" value="Android" /> Android
-            <form:checkbox path="operatingSystems" value="IOS" /> IOS
+            <form:checkboxes path="operatingSystems" items="${operatingSystems}" />
 
             <br><br>
             <input type="submit" value="submit"/>

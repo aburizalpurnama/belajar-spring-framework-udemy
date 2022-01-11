@@ -33,6 +33,9 @@
 	<!-- Configuration for retrieve data from properties file-->
 	<util:properties id="countryOptions" location="classpath:../countries.properties"/>
 
+	<util:properties id="operatingSystems" location="classpath:../os.properties"/>
+
+
 </beans>
 
 
