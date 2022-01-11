@@ -39,11 +39,7 @@
 
             <br><br>
             Favorite Language :
-            <form:radiobutton path="favoriteLanguage" value="Java" /> Java
-            <form:radiobutton path="favoriteLanguage" value="Phyton" /> Phyton
-            <form:radiobutton path="favoriteLanguage" value="Rubi" /> Rubi
-            <form:radiobutton path="favoriteLanguage" value="PHP" /> PHP
-            <form:radiobutton path="favoriteLanguage" value="Javascript" /> Javascript
+            <form:radiobuttons path="favoriteLanguage" items="${student.favLanguageOptions}" />
 
             <br><br>
             <input type="submit" value="submit"/>

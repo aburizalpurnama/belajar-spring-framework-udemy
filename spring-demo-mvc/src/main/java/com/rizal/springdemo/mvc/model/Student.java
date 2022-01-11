@@ -9,6 +9,7 @@ public class Student {
     private String country;
     private Map<String, String> countryOptions;
     private String favoriteLanguage;
+    public Map<String, String> favLanguageOptions;
 
     public Student() {
 
@@ -19,6 +20,14 @@ public class Student {
 //        countryOptions.put("IND", "India");
 //        countryOptions.put("AFG", "Afghanistan");
 //        countryOptions.put("ALB", "Albania");
+
+        // populate the value of radio button from java file
+        favLanguageOptions = new LinkedHashMap<>();
+        favLanguageOptions.put("Java", "Java");
+        favLanguageOptions.put("Phyton", "Phyton");
+        favLanguageOptions.put("Rubi", "Rubi");
+        favLanguageOptions.put("Javacript", "Javascript");
+        favLanguageOptions.put("PHP", "PHP");
     }
 
     public String getFirstName() {
@@ -55,5 +64,9 @@ public class Student {
 
     public void setFavoriteLanguage(String favoriteLanguage) {
         this.favoriteLanguage = favoriteLanguage;
+    }
+
+    public Map<String, String> getFavLanguageOptions() {
+        return favLanguageOptions;
     }
 }
