@@ -1,6 +1,7 @@
 package com.rizal.springdemo.mvc.model;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Student {
@@ -10,6 +11,7 @@ public class Student {
     private Map<String, String> countryOptions;
     private String favoriteLanguage;
     private Map<String, String> favLanguageOptions;
+    private String[] operatingSystems;
 
     public Student() {
 
@@ -68,5 +70,13 @@ public class Student {
 
     public Map<String, String> getFavLanguageOptions() {
         return favLanguageOptions;
+    }
+
+    public String[] getOperatingSystems() {
+        return operatingSystems;
+    }
+
+    public void setOperatingSystems(String[] operatingSystems) {
+        this.operatingSystems = operatingSystems;
     }
 }
