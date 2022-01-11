@@ -9,7 +9,7 @@ public class Student {
     private String country;
     private Map<String, String> countryOptions;
     private String favoriteLanguage;
-    public Map<String, String> favLanguageOptions;
+    private Map<String, String> favLanguageOptions;
 
     public Student() {
 
