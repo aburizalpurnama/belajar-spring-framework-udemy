@@ -18,8 +18,6 @@
 
        Favorite Language : ${student.favoriteLanguage}
 
-       <br><br>
-
        Experienced OS :
        <ul>
        <c:forEach var="temp" items="${student.operatingSystems}">
