@@ -5,12 +5,14 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
@@ -28,6 +30,10 @@ public class CustomerController {
     public String processForm(
             @Valid @ModelAttribute("customer") Customer customer,
             BindingResult result){
+
+        System.out.println("Binding Result : " + result);
+        final List<ObjectError> errors = result.getAllErrors();
+        errors.forEach(System.out::println);
 
         // set the condition if has error
         if (result.hasErrors()){
