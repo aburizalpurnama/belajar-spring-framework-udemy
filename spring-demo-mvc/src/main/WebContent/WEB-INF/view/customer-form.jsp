@@ -13,8 +13,13 @@
         <form:form action="processForm" modelAttribute="customer">
             First Name : <form:input path="firstName" />
             <br><br>
+
             LastName*: <form:input path="lastName" />
             <form:errors path="lastName" cssClass="error" />
+            <br><br>
+
+            Free Passes : <form:input type="number" path="freePasses" />
+            <form:errors path="freePasses" cssClass="error" />
             <br><br>
 
             <input type="submit" value="Process" />
