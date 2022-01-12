@@ -13,6 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <spring-core.version>5.3.14</spring-core.version>
         <servlet-api.version>2.5</servlet-api.version>
+        <hibernate-validator.version>7.0.2.Final</hibernate-validator.version>
     </properties>
 
     <dependencies>
@@ -41,6 +42,7 @@
             <artifactId>servlet-api</artifactId>
             <version>${servlet-api.version}</version>
         </dependency>
+
     </dependencies>
 
 </project>
