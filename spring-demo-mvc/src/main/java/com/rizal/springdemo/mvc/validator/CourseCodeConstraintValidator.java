@@ -7,19 +7,31 @@ import javax.validation.ConstraintValidatorContext;
 
 public class CourseCodeConstraintValidator implements ConstraintValidator<CourseCode, String> {
 
-    private String coursePrefix;
+    private String[] coursePrefixes;
 
     @Override
     public void initialize(CourseCode constraintAnnotation) {
-        coursePrefix = constraintAnnotation.value();
+        coursePrefixes = constraintAnnotation.value();
     }
 
     @Override
     public boolean isValid(String courseCode, ConstraintValidatorContext constraintValidatorContext) {
+        boolean result = false;
+
         if (courseCode != null) {
-            return courseCode.startsWith(coursePrefix);
+
+            // iterate coursePrefixes & check if code match any prefixes
+            for (var code : coursePrefixes){
+                result = courseCode.startsWith(code);
+
+                if (result){
+                    break;
+                }
+            }
         } else {
-            return true;
+            result = true;
         }
+
+        return result;
     }
 }

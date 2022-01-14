@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 public @interface CourseCode {
 
     // define default course code
-    public String value() default "RZL";
+    public String[] value() default {"RZL"};
 
     // define default error message
     public String message() default "must start with RZL";
