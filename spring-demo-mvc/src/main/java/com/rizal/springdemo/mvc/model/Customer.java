@@ -1,5 +1,7 @@
 package com.rizal.springdemo.mvc.model;
 
+import com.rizal.springdemo.mvc.annotation.CourseCode;
+
 import javax.validation.constraints.*;
 
 public class Customer {
@@ -18,6 +20,9 @@ public class Customer {
     @NotNull(message = "is required")
     @Pattern(regexp = "^[a-zA-Z0-9]{5}", message = "Only 5 characters / digits")
     private String postalCode;
+
+    @CourseCode(value="KTL", message = "must start with KTL")
+    private String courseCode;
 
     public String getFirstName() {
         return firstName;
@@ -49,5 +54,13 @@ public class Customer {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 }
