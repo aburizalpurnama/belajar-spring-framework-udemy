@@ -1,6 +1,7 @@
 package com.rizal.springdemo.mvc.model;
 
 import com.rizal.springdemo.mvc.annotation.CourseCode;
+import com.rizal.springdemo.mvc.annotation.Email;
 
 import javax.validation.constraints.*;
 
@@ -23,6 +24,9 @@ public class Customer {
 
     @CourseCode(value={"KTL", "ITL"}, message ="must start with \"KTL\" or \"ITL\"")
     private String courseCode;
+
+    @Email
+    private String email;
 
     public String getFirstName() {
         return firstName;
@@ -62,5 +66,13 @@ public class Customer {
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -30,6 +30,10 @@
             <form:errors path="courseCode" cssClass="error" />
             <br><br>
 
+            Email : <form:input type="text" path="email" />
+            <form:errors path="email" cssClass="error" />
+            <br><br>
+
             <input type="submit" value="Process" />
         </form:form>
     </body>

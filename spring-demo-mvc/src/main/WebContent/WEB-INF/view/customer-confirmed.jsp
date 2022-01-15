@@ -17,6 +17,9 @@
        <br><br>
 
        Course Code : ${customer.courseCode}
+       <br><br>
+
+       Email : ${customer.email}
 
     </body>
 </html>
