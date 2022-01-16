@@ -50,4 +50,55 @@ public class HibernateTest {
         }
     }
 
+    @Test
+    public void testReadDataFromDatabase(){
+        // create session factory
+        SessionFactory sessionFactory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Student.class)
+                .buildSessionFactory();
+
+        // create session
+        Session session = sessionFactory.getCurrentSession();
+
+        // do some database operation using creted session
+        try{
+            // use the session object to map and save java object into database
+            // create student object
+            System.out.println("Creating a student object ..");
+            Student student1 = new Student("Zaki", "hendra", "zaki@mail.com");
+
+            // start begin transaction
+            session.beginTransaction();
+
+            // save the student object
+            System.out.println("Saving the student..");
+            session.save(student1);
+
+            // commit transaction
+            session.getTransaction().commit();
+            System.out.println("Sucessfully saving data");
+
+            // get a new session and start transaction
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+
+            // retrieve data from database
+            System.out.println("\nGetting student with id : " + student1.getId());
+
+            Student newStudent = session.get(Student.class, student1.getId());
+
+            // commit the transaction
+            session.getTransaction().commit();
+
+            System.out.println("Retrieving data complete, data : " + newStudent);
+
+            System.out.println("Done!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            sessionFactory.close();
+        }
+    }
 }
