@@ -34,12 +34,12 @@ public class HibernateAdvanceMappingTest {
     public void saveObjectOneToOne(){
         // create the object
         Instructor instructor =
-                new Instructor("Moh", "Fadly", "fadly@mail.com");
+                new Instructor("Zacky", "Fuady", "zacky@mail.com");
 
         InstructorDetail instructorDetail =
                 new InstructorDetail(
-                        "http://www.fadly.com/youtube",
-                        "praying");
+                        "http://www.zacky.com/youtube",
+                        "Lego");
 
         // associate the object
         instructor.setInstructorDetail(instructorDetail);
@@ -84,7 +84,7 @@ public class HibernateAdvanceMappingTest {
     }
 
     @Test
-    public  void oneToOneBiDiretion(){
+    public void oneToOneBiDiretion(){
         int id = 256;
 
         try {
@@ -106,7 +106,7 @@ public class HibernateAdvanceMappingTest {
     }
 
     @Test
-    public  void deleteOneToOneBiDiretion(){
+    public void deleteOneToOneBiDiretion(){
         int id = 2;
 
         try {
@@ -118,6 +118,35 @@ public class HibernateAdvanceMappingTest {
 
             // print associated instructor object
             System.out.println(instructorDetail.getInstructor());
+
+            // delete instructor detail
+            session.delete(instructorDetail);
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void cescadeChanging(){
+        int id = 3;
+
+        try {
+            session.beginTransaction();
+            InstructorDetail instructorDetail = session.get(InstructorDetail.class, id);
+
+            // print retrieved instructor detail object
+            System.out.println(instructorDetail);
+
+            // print associated instructor object
+            System.out.println(instructorDetail.getInstructor());
+
+            // remove the associated object reference
+            // break bi-directional link
+            instructorDetail.getInstructor().setInstructorDetail(null);
 
             // delete instructor detail
             session.delete(instructorDetail);
