@@ -104,4 +104,29 @@ public class HibernateAdvanceMappingTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public  void deleteOneToOneBiDiretion(){
+        int id = 2;
+
+        try {
+            session.beginTransaction();
+            InstructorDetail instructorDetail = session.get(InstructorDetail.class, id);
+
+            // print retrieved instructor detail object
+            System.out.println(instructorDetail);
+
+            // print associated instructor object
+            System.out.println(instructorDetail.getInstructor());
+
+            // delete instructor detail
+            session.delete(instructorDetail);
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
 }
