@@ -3,6 +3,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -138,6 +139,31 @@ public class HibernateTest {
 
             students.forEach(System.out::println);
         } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void updatingObjectWithHibernate200(){
+        int studentId= 1;
+        String newFirstName = "Nawi";
+
+        try {
+            // get the object
+            session.beginTransaction();
+            Student student = session.get(Student.class, studentId);
+
+            // update the object
+            student.setFirstName(newFirstName);
+
+            // do automatic test
+            Assert.assertEquals(newFirstName, session.get(Student.class, studentId).getFirstName());
+            System.out.println(session.get(Student.class, studentId).getFirstName());
+
+            // commit the transaction and save the update
+            session.getTransaction().commit();
+
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
