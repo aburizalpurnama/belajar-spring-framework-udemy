@@ -2,9 +2,33 @@ import com.rizal.spring.hibernate.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class HibernateTest {
+
+    SessionFactory sessionFactory;
+    Session session;
+
+    @Before
+    public void setUp() throws Exception {
+        // create session factory
+        sessionFactory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Student.class)
+                .buildSessionFactory();
+
+        // create session
+        session = sessionFactory.getCurrentSession();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        sessionFactory.close();
+    }
 
     /**
      *'truncate table_name' for empty and reset the database table
@@ -99,6 +123,22 @@ public class HibernateTest {
             e.printStackTrace();
         } finally {
             sessionFactory.close();
+        }
+    }
+
+    @Test
+    public void testQueryingObjectsFromDatabase(){
+        try{
+            session.beginTransaction();
+//            List<Student> students = session.createQuery("from Student").getResultList();
+//            List<Student> students = session.createQuery("from Student s where s.lastName='njen'").getResultList();
+//            List<Student> students = session.createQuery("from Student s where s.lastName='njen' or s.firstName='Iwan'").getResultList();
+            List<Student> students = session.createQuery("from Student s where s.email LIKE '%mail.com'").getResultList();
+            session.getTransaction().commit();
+
+            students.forEach(System.out::println);
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
