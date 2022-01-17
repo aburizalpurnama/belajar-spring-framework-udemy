@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -24,15 +25,20 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+
     @Column(name = "company")
     private String company;
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String company) {
+    public Employee(String firstName, String lastName, String company, Date dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.company = company;
+        this.dateOfBirth = dateOfBirth;
     }
 }

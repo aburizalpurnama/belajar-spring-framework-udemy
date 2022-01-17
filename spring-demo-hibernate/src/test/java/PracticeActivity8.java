@@ -1,4 +1,5 @@
 import com.rizal.spring.hibernate.entity.Employee;
+import com.rizal.spring.hibernate.util.DateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,7 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,8 +42,11 @@ public class PracticeActivity8 {
     @Test
     public void saveObject(){
         try{
+            String dateBirthString = "01/09/1998";
+            Date dateBirth = DateUtil.parseDate(dateBirthString);
+
             //create object
-            Employee employee = new Employee("kumal", "purnama", "atria");
+            Employee employee = new Employee("yazid", "ahmad", "atria", dateBirth);
 
             //begin transaction and save object
             session.beginTransaction();
@@ -98,5 +104,22 @@ public class PracticeActivity8 {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void updateObject() throws ParseException {
+        String id = "5";
+        String dateOfBirthStr = "19/02/1998";
+        session.beginTransaction();
+
+        // get the object
+        Employee employee = session.get(Employee.class, id);
+
+        // update the object
+        employee.setDateOfBirth(DateUtil.parseDate(dateOfBirthStr));
+
+        Assert.assertNotNull(session.get(Employee.class, id).getDateOfBirth());
+        session.getTransaction().commit();
+
     }
 }
