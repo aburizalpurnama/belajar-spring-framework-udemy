@@ -167,4 +167,18 @@ public class HibernateTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void updatingAllObject199(){
+        try {
+            String newEmail = "foo@mail.com";
+
+            session.beginTransaction();
+            session.createQuery("update Student set email = '"+newEmail+"'").executeUpdate();
+            Assert.assertEquals(newEmail, session.get(Student.class, 1).getEmail());
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
