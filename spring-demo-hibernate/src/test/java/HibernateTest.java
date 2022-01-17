@@ -190,6 +190,9 @@ public class HibernateTest {
 
             session.beginTransaction();
 
+            // another way of deleting
+//            session.createQuery("delete from Student where id=" + studentId).executeUpdate();
+
             // get the object
             Student student = session.get(Student.class, studentId);
 
