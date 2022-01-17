@@ -82,4 +82,20 @@ public class HibernateAdvanceMappingTest {
         session.getTransaction().commit();
         System.out.println("Done!");
     }
+
+    @Test
+    public  void oneToOneBiDiretion(){
+        int id = 2;
+
+        session.beginTransaction();
+        InstructorDetail instructorDetail = session.get(InstructorDetail.class, id);
+
+        // print retrieved instructor detail object
+        System.out.println(instructorDetail);
+
+        // print associated instructor object
+        System.out.println(instructorDetail.getInstructor());
+
+        session.getTransaction().commit();
+    }
 }
