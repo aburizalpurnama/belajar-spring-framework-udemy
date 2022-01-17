@@ -58,5 +58,28 @@ public class HibernateAdvanceMappingTest {
         session.getTransaction().commit();
         System.out.println("Done!");
     }
-    
+
+    @Test
+    public void deleteObjectOneToOne(){
+        int id = 3;
+
+        // start transaction
+        session.beginTransaction();
+
+        // get instructor by ID
+        Instructor instructor = session.get(Instructor.class, id);
+
+        // delete the instructor
+        if (instructor != null){
+            System.out.println("deleting : " + instructor);
+
+            // NOTE : it will ALSO delete associate "detail" object
+            // because of CasecadeType=All
+            session.delete(instructor);
+        }
+
+        // commit transaction
+        session.getTransaction().commit();
+        System.out.println("Done!");
+    }
 }
