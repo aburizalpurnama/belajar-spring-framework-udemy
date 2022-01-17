@@ -1,4 +1,5 @@
 import com.rizal.spring.hibernate.entity.Student;
+import net.bytebuddy.utility.visitor.ExceptionTableSensitiveMethodVisitor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -176,6 +177,28 @@ public class HibernateTest {
             session.beginTransaction();
             session.createQuery("update Student set email = '"+newEmail+"'").executeUpdate();
             Assert.assertEquals(newEmail, session.get(Student.class, 1).getEmail());
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deletingObject201(){
+        try {
+            int studentId = 1;
+
+            session.beginTransaction();
+
+            // get the object
+            Student student = session.get(Student.class, studentId);
+
+            // delete the object
+            session.delete(student);
+
+            // test
+            Assert.assertNull(session.get(Student.class, studentId));
+
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
