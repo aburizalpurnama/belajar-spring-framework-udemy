@@ -8,6 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Before run test below, update properly url (database name/ schema) on hibernate.cfg.xml file first.
+ */
 public class OneToManyTest {
     SessionFactory sessionFactory;
     Session session;
@@ -124,6 +127,33 @@ public class OneToManyTest {
             session.getTransaction().commit();
             System.out.println("Success retrieve the object..");
 
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deteleObjectOnDatabase(){
+        try {
+            int courseId = 13;
+
+            // begin transaction
+            session.beginTransaction();
+
+            // get the course from database
+            Course course = session.get(Course.class, courseId);
+
+            // delete the course
+            System.out.println("Deleting object : " + course);
+            session.delete(course);
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success delete the object..");
         } catch (Exception e){
 
             // add a clean up connection code

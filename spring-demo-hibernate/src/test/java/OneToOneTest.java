@@ -7,6 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Before run test below, update properly url (database name/ schema) on hibernate.cfg.xml file first.
+ */
 public class OneToOneTest {
     SessionFactory sessionFactory;
     Session session;
