@@ -64,4 +64,44 @@ public class OneToManyTest {
         }
     }
 
+    @Test
+    public void saveInstructorAndCourseObjectToDatabase(){
+        try {
+            int instructorId = 1;
+
+            // creating objects
+            Course course1 = new Course("Mastering Spring Framework In 30 Days");
+            Course course2 = new Course("Web Development Bootcamp 2022");
+            Course course3 = new Course("Artificial Intelligent From Scratch");
+            Course course4 = new Course("Data Science Zero To Hero");
+
+            // get instructor from database
+            session.beginTransaction();
+            Instructor instructor = session.get(Instructor.class, instructorId);
+
+            // associate the object
+            instructor.add(course1);
+            instructor.add(course2);
+            instructor.add(course3);
+            instructor.add(course4);
+
+            // save the objects
+            System.out.println("Saving object : " + instructor.getCourses());
+            session.save(course1);
+            session.save(course2);
+            session.save(course3);
+            session.save(course4);
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success save the object..");
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
 }
