@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * Before run test below, update properly url (database name/ schema) on hibernate.cfg.xml file first.
  */
@@ -230,6 +232,60 @@ public class OneToManyTest {
 
             // show instructor courses
             System.out.println("Instructor Courses : " + instructor.getCourses());
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void solveLazyLoadProblemWithCreatinNewSession(){
+        /**
+         * Relation dengan lazy loading biasanya akan menemui masalah jika me-load data dalam posisi session
+         * sudah close, maka dari itu cara mengatasinya bisa dengan menjalankan method get pada posisi session
+         * masih berjalan, atau dengan memanggil data menggunakan HQL (Hibernate Query Language), dan bisa jugan
+         * membuat session baru setelah session yang pertama closed
+         */
+        try {
+            int instructorId = 1;
+
+            // begin transaction
+            session.beginTransaction();
+
+            // retrieve object from db
+            System.out.println("Retrieving object..");
+            Instructor instructor =  session.get(Instructor.class, instructorId);
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success retrieve the object..");
+            System.out.println("Retrieved Instructor : " + instructor);
+
+            // session closed
+            session.close();
+            System.out.println("Session Closed..");
+
+            // create new session and begin transaction
+            session = sessionFactory.getCurrentSession();
+            System.out.println("New Session started..");
+            session.beginTransaction();
+
+            Query<Course> query =
+                    session.createQuery("select c from Course c " +
+                            "where c.instructor.id=:theInstructorId", Course.class);
+            // set query parameter
+            query.setParameter("theInstructorId", instructorId);
+
+            // excecute query
+            List<Course> courses = query.getResultList();
+
+            // show instructor courses
+            System.out.println("Instructor Courses : " + courses);
+
+            session.getTransaction().commit();
         } catch (Exception e){
 
             // add a clean up connection code
