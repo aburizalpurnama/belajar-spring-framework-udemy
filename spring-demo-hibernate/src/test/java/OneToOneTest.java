@@ -1,4 +1,3 @@
-import com.rizal.spring.hibernate.entity.Employee;
 import com.rizal.spring.hibernate.entity.Instructor;
 import com.rizal.spring.hibernate.entity.InstructorDetail;
 import org.hibernate.Session;
@@ -8,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HibernateAdvanceMappingTest {
+public class OneToOneTest {
     SessionFactory sessionFactory;
     Session session;
 

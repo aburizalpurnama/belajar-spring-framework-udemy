@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 
 public class DbConnectionTest {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/hb-01-one-to-one-uni?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/hb-03-one-to-many?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
         String username = "rizal";
         String password = "3748";
 
