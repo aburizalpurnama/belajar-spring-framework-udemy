@@ -163,4 +163,34 @@ public class OneToManyTest {
         }
     }
 
+    @Test
+    public void fetchTypeDemo(){
+        // override fetchType value in @OneToMany annotation with FetchType.EAGER
+        try {
+            int instructorId = 1;
+
+            // begin transaction
+            session.beginTransaction();
+
+            // retrieve object from db
+            System.out.println("Retrieving object..");
+            Instructor instructor = session.get(Instructor.class, instructorId);
+
+            // show instructor courses
+            System.out.println("Instructor : " + instructor);
+            System.out.println("Courses : " + instructor.getCourses());
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success retrieve the object..");
+
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
 }
