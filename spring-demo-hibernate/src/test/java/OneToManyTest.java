@@ -4,6 +4,7 @@ import com.rizal.spring.hibernate.entity.InstructorDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -184,6 +185,51 @@ public class OneToManyTest {
             session.getTransaction().commit();
             System.out.println("Success retrieve the object..");
 
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void solveLazyLoadProblemUsingHQL(){
+        /**
+         * Relation dengan lazy loading biasanya akan menemui masalah jika me-load data dalam posisi session
+         * sudah close, maka dari itu cara mengatasinya bisa dengan menjalankan method get pada posisi session
+         * masih berjalan, atau dengan memanggil data menggunakan HQL (Hibernate Query Language)
+         */
+        try {
+            int instructorId = 1;
+
+            // begin transaction
+            session.beginTransaction();
+
+            // retrieve object from db
+            System.out.println("Retrieving object using HQL..");
+            Query<Instructor> query =
+                    session.createQuery("select i from Instructor i " +
+                                        "JOIN FETCH i.courses " +
+                                        "where i.id=:theInstructorId", Instructor.class);
+            // set query parameter
+            query.setParameter("theInstructorId", instructorId);
+
+            Instructor instructor = query.getSingleResult();
+
+            System.out.println("Retrieved Instructor : " + instructor);
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success retrieve the object..");
+
+            // session closed
+            session.close();
+            System.out.println("Session Closed..");
+
+            // show instructor courses
+            System.out.println("Instructor Courses : " + instructor.getCourses());
         } catch (Exception e){
 
             // add a clean up connection code
