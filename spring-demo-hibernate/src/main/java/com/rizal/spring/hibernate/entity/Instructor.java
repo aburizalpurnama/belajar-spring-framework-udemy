@@ -13,7 +13,6 @@ import java.util.List;
 @Table(name = "instructor")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Instructor {
     @Id
@@ -51,5 +50,16 @@ public class Instructor {
 
         courses.add(course);
         course.setInstructor(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Instructor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", instructorDetail=" + instructorDetail +
+                '}';
     }
 }
