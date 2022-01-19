@@ -80,5 +80,27 @@ public class ManyToManyTest {
         }
     }
 
+    @Test
+    public void retrieveStudentAndCourses(){
+        try {
+            session.beginTransaction();
 
+            Student student = session.get(Student.class, 13);
+            List<Course> courses = student.getCourses();
+
+            System.out.println("Student : " + student.getFirstName() +" "+ student.getLastName());
+            System.out.println("Courses : ");
+            courses.forEach(course -> {
+                System.out.println("Title : " + course.getTitle());
+                System.out.println("Instructor : " + course.getInstructor().getFirstName() + " "+ course.getInstructor().getLastName());
+                System.out.println("Instructor Hobby : " + course.getInstructor().getInstructorDetail().getHobby());
+            });
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
 }
