@@ -1,6 +1,7 @@
 import com.rizal.spring.hibernate.entity.Course;
 import com.rizal.spring.hibernate.entity.Instructor;
 import com.rizal.spring.hibernate.entity.InstructorDetail;
+import com.rizal.spring.hibernate.entity.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -26,6 +27,7 @@ public class OneToManyTest {
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(InstructorDetail.class)
                 .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Review.class)
                 .buildSessionFactory();
 
         // create session object
@@ -71,7 +73,7 @@ public class OneToManyTest {
     }
 
     @Test
-    public void saveInstructorAndCourseObjectToDatabase(){
+    public void addingCoursesToInstructor(){
         try {
             int instructorId = 1;
 
@@ -286,6 +288,87 @@ public class OneToManyTest {
             System.out.println("Instructor Courses : " + courses);
 
             session.getTransaction().commit();
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addReviewsToCourseObjectWithUniDirectional(){
+        try {
+            int courseId = 10;
+
+            // creating reviews objects
+            Review review1 = new Review("Great course, very recommended !");
+            Review review2 = new Review("easy to understand, nice");
+            Review review3 = new Review("Rich of example with detail explaination, love it..");
+            Review review4 = new Review("Best spring framework course ever..");
+
+            // begin transaction
+            session.beginTransaction();
+
+            // get course object
+            Course course = session.get(Course.class, courseId);
+
+            // associate the object
+            course.addReview(review1);
+            course.addReview(review2);
+            course.addReview(review3);
+            course.addReview(review4);
+
+
+            // save the objects
+            System.out.println("Saving object : " + course);
+            System.out.println("Reviews : " + course.getReviews());
+            session.save(review1);
+            session.save(review2);
+            session.save(review3);
+            session.save(review4);
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success save the object..");
+        } catch (Exception e){
+
+            // add a clean up connection code
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void retrieveReviewsObjectFromDatabase(){
+        try {
+            int instructorId = 1;
+
+            // begin transaction
+            session.beginTransaction();
+
+            // retrieve object from db
+            System.out.println("Retrieving object..");
+            Instructor instructor = session.get(Instructor.class, instructorId);
+
+            // show instructor courses
+            System.out.println("Instructor :");
+            System.out.println(instructor.getFirstName());
+            System.out.println("\tCourses :");
+            instructor.getCourses().forEach(course -> {
+                System.out.println("\t"+course.getTitle());
+                System.out.println("\t\tReviews :");
+                course.getReviews().forEach(review -> {
+                    System.out.println("\t\t" + review.getComment());
+                });
+            });
+
+            //commit transaction
+            session.getTransaction().commit();
+            System.out.println("Success retrieve the object..");
+
         } catch (Exception e){
 
             // add a clean up connection code
