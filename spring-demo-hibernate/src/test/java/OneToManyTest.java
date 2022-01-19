@@ -13,7 +13,7 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * Before run test below, update properly url (database name/ schema) on hibernate.cfg.xml file first.
+ * Before run the test below, update properly url (database name/ schema) on hibernate.cfg.xml file first.
  */
 public class OneToManyTest {
     SessionFactory sessionFactory;
@@ -142,9 +142,9 @@ public class OneToManyTest {
     }
 
     @Test
-    public void deteleObjectOnDatabase(){
+    public void deleteCourseObjectFromDatabase(){
         try {
-            int courseId = 13;
+            int courseId = 10;
 
             // begin transaction
             session.beginTransaction();
