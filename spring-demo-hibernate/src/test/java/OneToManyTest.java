@@ -1,7 +1,4 @@
-import com.rizal.spring.hibernate.entity.Course;
-import com.rizal.spring.hibernate.entity.Instructor;
-import com.rizal.spring.hibernate.entity.InstructorDetail;
-import com.rizal.spring.hibernate.entity.Review;
+import com.rizal.spring.hibernate.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -28,6 +25,7 @@ public class OneToManyTest {
                 .addAnnotatedClass(InstructorDetail.class)
                 .addAnnotatedClass(Course.class)
                 .addAnnotatedClass(Review.class)
+                .addAnnotatedClass(Student.class)
                 .buildSessionFactory();
 
         // create session object
@@ -300,7 +298,7 @@ public class OneToManyTest {
     @Test
     public void addReviewsToCourseObjectWithUniDirectional(){
         try {
-            int courseId = 10;
+            int courseId = 12;
 
             // creating reviews objects
             Review review1 = new Review("Great course, very recommended !");
