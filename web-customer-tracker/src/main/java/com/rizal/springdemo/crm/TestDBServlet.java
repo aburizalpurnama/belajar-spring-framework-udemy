@@ -20,7 +20,7 @@ public class TestDBServlet extends HttpServlet {
         String user = "rizal";
         String password = "3748";
         String url = "jdbc:mysql://localhost:3306/web_customer_tracker?useSSL=false&serverTimezone=UTC";
-        String driver = "com.mysql.jdbc.Driver";
+        String driver = "com.mysql.cj.jdbc.Driver";
 
         // get connection to database
         try {
