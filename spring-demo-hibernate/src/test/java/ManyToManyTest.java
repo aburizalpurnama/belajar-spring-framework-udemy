@@ -103,4 +103,52 @@ public class ManyToManyTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void deleteCourse(){
+        /**
+         * Make sure that related student is not deleted
+         */
+        int courseId = 13;
+
+        try {
+            session.beginTransaction();
+
+            // get course
+            Course course = session.get(Course.class, courseId);
+
+            // delete course
+            session.delete(course);
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteStudent(){
+        /**
+         * Make sure that related courses is not deleted
+         */
+        int studentId = 13;
+
+        try {
+            session.beginTransaction();
+
+            // get course
+            Student student = session.get(Student.class, studentId);
+
+            // delete course
+            session.delete(student);
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.close();
+            sessionFactory.close();
+            e.printStackTrace();
+        }
+    }
 }
