@@ -16,7 +16,6 @@ public class CustomerDaoImpl implements CustomerDao{
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional
     @Override
     public List<Customer> getCustomers(){
         // get current session
