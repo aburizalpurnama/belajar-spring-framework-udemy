@@ -19,7 +19,13 @@
         </div>
 
         <div id="container">
-            <div id="contain">
+            <div id="content">
+
+                <!-- add add customer button here -->
+                <input type="button" value="Add Customer"
+                       onclick="window.location.href='showFormForAdd'; return false;"
+                       class="add-button"
+                />
 
                 <!-- add html table here-->
                 <table>

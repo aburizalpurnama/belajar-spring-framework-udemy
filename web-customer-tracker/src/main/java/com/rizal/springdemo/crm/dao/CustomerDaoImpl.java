@@ -29,4 +29,10 @@ public class CustomerDaoImpl implements CustomerDao{
 
         return listCustomers;
     }
+
+    @Override
+    public void saveCustomer(Customer customer) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(customer);
+    }
 }
