@@ -55,10 +55,11 @@
                             <td>${customer.email}</td>
                             <td>
                                 <!-- display the update link -->
-                                <a href=${updateLink}>Update</a> |
+                                <a href="${updateLink}">Update</a> |
 
                                 <!-- display the delete link -->
-                                <a href=${deleteLink}>Delete</a>
+                                <a href="${deleteLink}"
+                                    onclick="if (!(confirm('Are you sure want to delete this customer ?'))) return false">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
