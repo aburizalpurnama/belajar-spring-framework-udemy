@@ -44,13 +44,21 @@
                             <c:param name="customerId" value="${customer.id}" />
                         </c:url>
 
+                        <!-- construc an "delete" link with customer id -->
+                        <c:url var="deleteLink" value="/customer/deleteCustomer">
+                            <c:param name="customerId" value="${customer.id}" />
+                        </c:url>
+
                         <tr>
                             <td>${customer.firstName}</td>
                             <td>${customer.lastName}</td>
                             <td>${customer.email}</td>
                             <td>
                                 <!-- display the update link -->
-                                <a href=${updateLink}>Update</a>
+                                <a href=${updateLink}>Update</a> |
+
+                                <!-- display the delete link -->
+                                <a href=${deleteLink}>Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
