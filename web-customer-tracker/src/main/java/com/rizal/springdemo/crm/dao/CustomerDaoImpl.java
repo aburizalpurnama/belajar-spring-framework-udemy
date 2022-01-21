@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +33,13 @@ public class CustomerDaoImpl implements CustomerDao{
     @Override
     public void saveCustomer(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(customer);
+
+        // saveOrUpdate : save new data if id = null, and update existing data if id != null
+        session.saveOrUpdate(customer);
+    }
+
+    @Override
+    public Customer getCustomer(int id) {
+        return sessionFactory.getCurrentSession().get(Customer.class, id);
     }
 }
