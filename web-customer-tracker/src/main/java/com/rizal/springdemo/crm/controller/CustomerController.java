@@ -1,6 +1,5 @@
 package com.rizal.springdemo.crm.controller;
 
-import com.rizal.springdemo.crm.dao.CustomerDao;
 import com.rizal.springdemo.crm.entity.Customer;
 import com.rizal.springdemo.crm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +49,7 @@ public class CustomerController {
     }
 
     @GetMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("customerId") int id,
-                                    Model model){
+    public String showFormForUpdate(@RequestParam("customerId") int id, Model model){
 
         // get customer from database
         Customer customer = customerService.getCustomer(id);
@@ -68,6 +66,18 @@ public class CustomerController {
         customerService.deleteCustomer(id);
 
         return "redirect:/customer/list";
+    }
+
+    @GetMapping("/search")
+    public String searchCustomers(@RequestParam("theSearchName") String searchName, Model model){
+
+        // search customer from service
+        List<Customer> customers = customerService.searchCustomerByName(searchName);
+
+        // add the customer to model
+        model.addAttribute("customers", customers);
+
+        return "list-customers";
     }
 
 }

@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -61,5 +62,28 @@ public class CustomerDaoImpl implements CustomerDao{
 //        // delete customer
 //        session.delete(customer);
 
+    }
+
+    @Override
+    public List<Customer> seachCustomerByName(@RequestParam("") String searchName) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = null;
+
+        // only search by name if searchName is not null & not empty
+
+        if (searchName != null && (searchName.trim().length() > 0)){
+            // search for firstName of lastName (case insensitif)
+            query = session.createQuery("from Customer where lower(firstName) like :name or lower(lastName) like :name", Customer.class);
+            query.setParameter("name", "%" + searchName.toLowerCase() + "%");
+        } else {
+            // searchName is empty, so just get all data customer
+            query = session.createQuery("from Customer", Customer.class);
+        }
+
+        // execute query
+        List<Customer> customers = query.getResultList();
+
+        return customers;
     }
 }
