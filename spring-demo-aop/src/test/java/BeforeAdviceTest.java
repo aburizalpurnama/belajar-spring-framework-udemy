@@ -1,6 +1,7 @@
 import com.rizal.spring.aop.config.AppConfig;
 import com.rizal.spring.aop.dao.AccountDao;
 import com.rizal.spring.aop.dao.MemberDao;
+import com.rizal.spring.aop.entity.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -17,7 +18,10 @@ public class BeforeAdviceTest {
 
         AccountDao accountDao = context.getBean("accountDao", AccountDao.class);
 
-        accountDao.addAccount();
+        Account account = context.getBean("account", Account.class);
+        account.setName("huhui");
+
+        accountDao.addAccount(account);
 
         MemberDao memberDao = context.getBean("memberDao", MemberDao.class);
 
