@@ -1,6 +1,7 @@
 package com.rizal.springdemo.crm.dao;
 
 import com.rizal.springdemo.crm.entity.Customer;
+import com.rizal.springdemo.crm.util.SortUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
 public class CustomerDaoImpl implements CustomerDao{
+
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -28,7 +32,41 @@ public class CustomerDaoImpl implements CustomerDao{
         // get the result set
         List<Customer> listCustomers = query.getResultList();
 
+        logger.info("running no args method");
+
         return listCustomers;
+    }
+
+    @Override
+    public List<Customer> getCustomers(int sortField) {
+        Session session = sessionFactory.getCurrentSession();
+
+        // get field name
+        String fieldName = null;
+
+        switch (sortField){
+            case SortUtil.FIRST_NAME:
+                fieldName = "firstName";
+                break;
+            case SortUtil.LAST_NAME:
+                fieldName = "lastName";
+                break;
+            case SortUtil.EMAIL:
+                fieldName = "email";
+                break;
+            default:
+                // if sort value is nothing mathes, set to lastName
+                fieldName = "lastName";
+        }
+
+        // create query
+        String queryString = "from Customer order by " + sortField;
+        Query<Customer> query = session.createQuery(queryString, Customer.class);
+
+        logger.info("running args method, sort value : " + sortField);
+
+        // execute query to get result list and return it
+        return query.getResultList();
     }
 
     @Override

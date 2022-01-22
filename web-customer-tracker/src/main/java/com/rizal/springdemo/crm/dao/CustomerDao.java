@@ -8,11 +8,13 @@ public interface CustomerDao {
 
     public List<Customer> getCustomers();
 
+    public List<Customer> getCustomers(int sortField);
+
     public void saveCustomer(Customer customer);
 
     public Customer getCustomer(int id);
 
     public void deleteCustomer(int id);
 
-    List<Customer> seachCustomerByName(String searchName);
+    public List<Customer> seachCustomerByName(String searchName);
 }

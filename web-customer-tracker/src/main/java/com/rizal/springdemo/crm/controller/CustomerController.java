@@ -2,29 +2,44 @@ package com.rizal.springdemo.crm.controller;
 
 import com.rizal.springdemo.crm.entity.Customer;
 import com.rizal.springdemo.crm.service.CustomerService;
+import com.rizal.springdemo.crm.util.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
+
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     // inject customerDao
     @Autowired
     private CustomerService customerService;
 
     @GetMapping("/list")
-    public String listCustomers(Model model){
+    public String listCustomers(Model model, @RequestParam(value = "sort", required = false) String sort){
 
         // get data
-        List<Customer> customers = customerService.getCustomers();
+        List<Customer> customers = null;
+
+        // check sort field value
+        if(sort != null){
+            int sortInt = Integer.parseInt(sort);
+            customers = customerService.getCustomers(sortInt);
+        } else {
+            // if sort args is null, sort data by last name
+            customers = customerService.getCustomers(SortUtil.LAST_NAME);
+        }
 
         // add data to model
         model.addAttribute("customers", customers);
+
+        logger.info("sort value : " + sort);
 
         return "list-customers";
     }

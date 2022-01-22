@@ -23,6 +23,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
+    public List<Customer> getCustomers(int sortField) {
+        return customerDao.getCustomers(sortField);
+    }
+
+    @Override
+    @Transactional
     public void saveCustomer(Customer customer) {
         customerDao.saveCustomer(customer);
     }
