@@ -19,11 +19,7 @@ public class BeforeAdviceTest {
 
         accountDao.addAccount();
 
-        accountDao.addAccount();
-
         MemberDao memberDao = context.getBean("memberDao", MemberDao.class);
-
-        memberDao.addMember();
 
         memberDao.addMember();
 
