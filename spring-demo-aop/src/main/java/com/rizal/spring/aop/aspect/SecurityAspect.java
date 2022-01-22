@@ -11,10 +11,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class SecurityAspect {
 
-    @Pointcut("execution(* com.rizal.spring.aop.*.*.*(..))")
-    private void fooPointcut(){}
-
-    @Before("fooPointcut()")
+    @Before("com.rizal.spring.aop.aspect.LoginAspect.forDaoPackage()")
     public void doSecurity(){
         System.out.println("\n=========>>>> do some security stuff");
     }

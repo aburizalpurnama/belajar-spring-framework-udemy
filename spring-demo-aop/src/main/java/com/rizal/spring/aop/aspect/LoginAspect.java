@@ -14,7 +14,7 @@ public class LoginAspect {
 
     // create pointcut
     @Pointcut("execution(* com.rizal.spring.aop.*.*.*(..))")
-    private void forDaoPackage(){};
+    public void forDaoPackage(){};
 
     @Pointcut("execution(* *.get*())")
     private void getter(){}
