@@ -103,7 +103,7 @@ public class LoginAspect {
 
         String methodSig = joinPoint.getSignature().toShortString();
 
-        System.out.println("\n\n============>>>>>> Executing @After advice on findAccounts()");
+        System.out.println("\n============>>>>>> Executing @After advice on findAccounts()");
         System.out.println("Method : " + methodSig);
     }
 

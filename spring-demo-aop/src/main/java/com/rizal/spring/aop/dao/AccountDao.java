@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class AccountDao {
@@ -19,6 +20,14 @@ public class AccountDao {
     public List<Account> findAccounts(){
 
         System.out.println(getClass() + " : Doing DB Work - find Accounts");
+
+        // simulate delay
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return accounts;
     }
 
