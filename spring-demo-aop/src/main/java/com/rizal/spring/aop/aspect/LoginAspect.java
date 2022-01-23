@@ -29,6 +29,10 @@ public class LoginAspect {
 
     // this is where we add all of our related for logging
 
+    /**
+     * This aspect will run before target method running
+     * @param joinPoint
+     */
     // create an aspect method with @Before annotation
     @Before("forDaoPackage() && !(getter() || setter() || tostring())")
     public void beforeAddAccountAdvice(JoinPoint joinPoint){
@@ -49,6 +53,12 @@ public class LoginAspect {
 
     }
 
+    /**
+     * This aspect will run after target method returning value,
+     * and we can manipulate the return value.
+     * @param joinPoint
+     * @param accounts
+     */
     // create aspect method ( returning value must same with object parameter name )
     @AfterReturning(
             pointcut = "execution(* com.rizal.spring.aop.dao.AccountDao.findAccounts(..))",
@@ -64,6 +74,12 @@ public class LoginAspect {
         convertAccountNamesToUpperCase(accounts);
     }
 
+    /**
+     * This aspect will run only when target method throw execption,
+     * and we can do smo stuff with throwed exception
+     * @param joinPoint
+     * @param exception
+     */
     @AfterThrowing(
             pointcut = "execution(* com.rizal.spring.aop.dao.AccountDao.findAccounts(..))",
             throwing = "exception")
@@ -76,6 +92,19 @@ public class LoginAspect {
 
         // do something on exception
         System.out.println("Throwable Cought : " + exception);
+    }
+
+    /**
+     * This aspect will run after target method either success or throw execption
+     * @param joinPoint
+     */
+    @After("execution(* com.rizal.spring.aop.dao.AccountDao.findAccounts(..))")
+    public void afterFindAccountAdvice(JoinPoint joinPoint){
+
+        String methodSig = joinPoint.getSignature().toShortString();
+
+        System.out.println("\n\n============>>>>>> Executing @After advice on findAccounts()");
+        System.out.println("Method : " + methodSig);
     }
 
     private void convertAccountNamesToUpperCase(List<Account> accounts) {
