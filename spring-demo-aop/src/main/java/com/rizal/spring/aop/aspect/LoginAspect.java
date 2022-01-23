@@ -62,8 +62,20 @@ public class LoginAspect {
         System.out.println("=============>>>>>> Return value is : " + accounts);
 
         convertAccountNamesToUpperCase(accounts);
+    }
 
+    @AfterThrowing(
+            pointcut = "execution(* com.rizal.spring.aop.dao.AccountDao.findAccounts(..))",
+            throwing = "exception")
+    public void afterThrowingFindAccountAdvice(JoinPoint joinPoint, Throwable exception){
 
+        System.out.println("\n\n============>>>>>> Executing @AfterThrowing advice on findAccounts()");
+        // print out the method signature of target method
+        String methodSig = joinPoint.getSignature().toShortString();
+        System.out.println("Method : " + methodSig);
+
+        // do something on exception
+        System.out.println("Throwable Cought : " + exception);
     }
 
     private void convertAccountNamesToUpperCase(List<Account> accounts) {

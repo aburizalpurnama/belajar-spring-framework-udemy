@@ -21,4 +21,8 @@ public class AccountDao {
         System.out.println(getClass() + " : Doing DB Work - find Accounts");
         return accounts;
     }
+
+    public List<Account> findAccounts(boolean tripWire) {
+        throw new RuntimeException("This is the exception message !!");
+    }
 }
