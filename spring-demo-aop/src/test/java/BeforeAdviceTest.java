@@ -20,6 +20,7 @@ public class BeforeAdviceTest {
 
         Account account = context.getBean("account", Account.class);
         account.setName("huhui");
+        account.setLevel("Platinum");
 
         accountDao.addAccount(account);
 

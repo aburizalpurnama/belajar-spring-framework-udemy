@@ -2,13 +2,12 @@ package com.rizal.spring.aop.aspect;
 
 import com.rizal.spring.aop.entity.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Aspect
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class LoginAspect {
 
     // create pointcut
-    @Pointcut("execution(* com.rizal.spring.aop.*.*.*(..))")
+    @Pointcut("execution(* *.*(..))")
     public void forDaoPackage(){};
 
     @Pointcut("execution(* *.get*(..))")
@@ -25,10 +24,13 @@ public class LoginAspect {
     @Pointcut("execution(* *.set*(..))")
     public void setter(){}
 
+    @Pointcut("execution(* *.toString())")
+    public void tostring(){}
+
     // this is where we add all of our related for logging
 
     // create an aspect method with @Before annotation
-    @Before("forDaoPackage() && !(getter() || setter())")
+    @Before("forDaoPackage() && !(getter() || setter() || tostring())")
     public void beforeAddAccountAdvice(JoinPoint joinPoint){
 
         System.out.println("\n===========>>>>>> Executing @Before advice on addAccount()");
@@ -43,14 +45,21 @@ public class LoginAspect {
 
         for (Object arg : args){
             System.out.println("Argument : " + arg);
-            if (arg instanceof Account){
-
-                // downcast the arg object
-                Account account = (Account) arg;
-
-                System.out.println("Account Argument : Account{name='" + account.getName() + "'}" );
-            }
         }
+
+    }
+
+    // create aspect method ( returning value must same with object parameter name )
+    @AfterReturning(
+            pointcut = "execution(* com.rizal.spring.aop.dao.AccountDao.findAccounts(..))",
+            returning = "accounts")
+    public void afterReturningFindAccountAdvice(JoinPoint joinPoint, List<Account> accounts){
+        // print out method signature of target method
+        String methodSign = joinPoint.getSignature().toShortString();
+        System.out.println("\n=============>>>>>> Executing @AfterReturning on method : " + methodSign);
+
+        // print out result or return value of target method
+        System.out.println("=============>>>>>> Return value is : " + accounts);
 
     }
 

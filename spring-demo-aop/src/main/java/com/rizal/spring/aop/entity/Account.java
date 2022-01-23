@@ -1,22 +1,18 @@
 package com.rizal.spring.aop.entity;
 
+import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account {
     private String name;
-
-    private void addFoo(){
-        System.out.println(getClass() + " : addFoo");
-    }
-
-    public String getName() {
-        System.out.println(getClass() + "getName() here");
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        System.out.println(getClass() + "setName() here");
-    }
+    private String level;
 }
