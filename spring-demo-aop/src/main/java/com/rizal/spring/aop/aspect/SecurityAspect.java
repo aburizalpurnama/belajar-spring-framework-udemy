@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class SecurityAspect {
 
-    @Before("com.rizal.spring.aop.aspect.LoginAspect.forDaoPackage()")
+    @Before("com.rizal.spring.aop.aspect.LoginAspect.forDaoPackage() " +
+            "&& !(com.rizal.spring.aop.aspect.LoginAspect.getter() " +
+            "|| com.rizal.spring.aop.aspect.LoginAspect.setter())")
     public void doSecurity(){
         System.out.println("\n=========>>>> do some security stuff");
     }
