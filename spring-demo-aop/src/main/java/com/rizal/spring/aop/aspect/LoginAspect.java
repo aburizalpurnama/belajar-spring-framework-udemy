@@ -61,6 +61,20 @@ public class LoginAspect {
         // print out result or return value of target method
         System.out.println("=============>>>>>> Return value is : " + accounts);
 
+        convertAccountNamesToUpperCase(accounts);
+
+
+    }
+
+    private void convertAccountNamesToUpperCase(List<Account> accounts) {
+
+        // iterate the accounts
+        accounts.forEach(account -> {
+
+            // change each account name to upper case
+            account.setName(account.getName().toUpperCase());
+        });
+
     }
 
 }
