@@ -3,6 +3,7 @@ package com.rizal.spring.security.demo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -26,6 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("rizal").password(getHashedPassword("rizal123")).roles("MANAGER").and()
                 .withUser("tohir").password(getHashedPassword("tohir123")).roles("EMPLOYEE").and()
                 .withUser("jamal").password(getHashedPassword("jamal123")).roles("ADMIN");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        // configure custome login page
+        http.authorizeRequests()
+                .anyRequest()
+                    .authenticated()
+                .and()
+                .formLogin()
+                    .loginPage("/showLoginPage")
+                    .loginProcessingUrl("/authenticateUser")
+                    .permitAll();
     }
 
     @Bean
