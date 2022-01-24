@@ -15,7 +15,7 @@
 
         <div id="wrapper">
             <div id="header">
-                <h2>Welcome to company page</h2>
+                <h2>Welcome To Company Home Page</h2>
             </div>
         </div>
 
