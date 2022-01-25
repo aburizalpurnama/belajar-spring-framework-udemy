@@ -34,8 +34,11 @@
     				<div style="padding-top: 30px" class="panel-body">
 
     					<!-- Login Form -->
-    					<form:form action="${pageContext.request.contextPath}/authenticateUser"
+    					<form action="${pageContext.request.contextPath}/authenticateUser"
     							   method="POST" class="form-horizontal">
+
+                            <!-- add csrf token manually -->
+                            <input type="hiddern" name="${_csrf.parameterName}" value="${_csrf.token}">
 
     					    <!-- Place for messages: error, alert etc ... -->
     					    <div class="form-group">
@@ -87,7 +90,7 @@
     							</div>
     						</div>
 
-    					</form:form>
+    					</form>
 
     				</div>
 
