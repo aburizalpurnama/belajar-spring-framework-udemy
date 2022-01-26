@@ -37,15 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").hasAnyRole("EMPLOYEE", "ADMIN", "MANAGER")
                 .antMatchers("/leaders/**").hasRole("MANAGER")
                 .antMatchers("/systems/**").hasRole("ADMIN")
-                .anyRequest()
-                    .authenticated()
-                .and()
-                .formLogin()
+                .and().formLogin()
                     .loginPage("/showLoginPage")
                     .loginProcessingUrl("/authenticateUser")
                     .permitAll()
-                .and()
-                .logout().permitAll();
+                .and().exceptionHandling()
+                    .accessDeniedPage("/accessDenied")
+                .and().logout().permitAll();
     }
 
     @Bean
