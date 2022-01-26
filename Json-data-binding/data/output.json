@@ -1,0 +1,26 @@
+{
+  "id" : "1",
+  "firstName" : "Rizal",
+  "lastName" : "Ganteng",
+  "active" : true,
+  "friends" : [ "Edi", "Sudar", "Jaka" ],
+  "instructor" : {
+    "id" : "1",
+    "firstName" : "Bambang",
+    "lastName" : "Utomo"
+  },
+  "courses" : [ {
+    "id" : "1",
+    "title" : "Java Spring"
+  }, {
+    "id" : "2",
+    "title" : "Expert Data Science"
+  }, {
+    "id" : "3",
+    "title" : "Mastering Hibernate"
+  } ],
+  "address": {
+      "id" : "1",
+      "postCode" : "82912"
+  }
+}
