@@ -28,6 +28,17 @@
         <hr>
         <div style="clear; both;"></div>
 
+        <p>
+            <a href="${pageContext.request.contextPath}/leaders"> Leader section </a>
+            (Only for Manager)
+            <br><br>
+
+            <a href="${pageContext.request.contextPath}/systems"> IT system section </a>
+            (Only for IT Admin)
+        </p>
+        <hr>
+        <div style="clear; both;"></div>
+
         <form:form action="${pageContext.request.contextPath}/logout" method="POST">
 
             <input type="submit" value="Logout"/>

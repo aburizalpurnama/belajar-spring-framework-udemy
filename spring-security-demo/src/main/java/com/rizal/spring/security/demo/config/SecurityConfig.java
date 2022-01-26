@@ -34,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // configure custome login page
         http.authorizeRequests()
+                .antMatchers("/").hasAnyRole("EMPLOYEE", "ADMIN", "MANAGER")
+                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/systems/**").hasRole("ADMIN")
                 .anyRequest()
                     .authenticated()
                 .and()
