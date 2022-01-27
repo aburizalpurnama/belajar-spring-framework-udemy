@@ -1,6 +1,7 @@
 package com.rizal.springdemo.crm.controller;
 
 import com.rizal.springdemo.crm.entity.Customer;
+import com.rizal.springdemo.crm.exception.CustomerNotFoundException;
 import com.rizal.springdemo.crm.service.CustomerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class CustomerRestController {
 
     @GetMapping("/customers/{customerId}")
     public Customer getCustomer(@PathVariable int customerId){
-        return customerService.getCustomer(customerId);
+        Customer customer = customerService.getCustomer(customerId);
+        if (customer == null){
+            throw new CustomerNotFoundException("Customer not found, id : '" + customerId + "'");
+        }
+        return customer;
     }
 
     @PostMapping("/customers")
