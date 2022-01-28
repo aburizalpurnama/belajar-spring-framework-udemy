@@ -53,9 +53,18 @@ public class CustomerRestController {
         customerService.saveCustomer(oldCust);
     }
 
+    @PutMapping("/customers")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateCustomer2(@RequestBody Customer newCust){
+        customerService.saveCustomer(newCust);
+    }
+
     @DeleteMapping("/customers/{customerId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCustomer(@PathVariable int customerId){
+        if (customerService.getCustomer(customerId) == null){
+            throw new CustomerNotFoundException("Customer not exist with id : '" +customerId+"'");
+        }
         customerService.deleteCustomer(customerId);
     }
 }
